@@ -1,0 +1,521 @@
+FUTBOL121 prototipini mevcut tasarımı ve çalışan yapıyı koruyarak aşağıdaki kesin oyun kurallarına göre güncelle.
+
+ÖNEMLİ:
+Mevcut oyunu baştan farklı bir oyuna dönüştürme.
+Mevcut futbol kart oyunu arayüzünü mümkün olduğunca koru.
+Bu istekte yazan kurallar artık oyunun LOCKED / kesin kurallarıdır.
+
+==================================================
+1. SAHA VE BAŞLANGIÇ KADROSU
+==================================================
+
+Her takım sahaya gerçek futbol formasyonu şeklinde 1-4-4-2 dizilişiyle çıkar:
+
+1 Kaleci
+4 Defans
+4 Orta Saha
+2 Forvet
+
+Toplam 11 oyuncu.
+
+Oyuncular sahada kart olarak görünmeli ve gerçek bir futbol sahası üzerinde pozisyonlarına göre dizilmelidir.
+
+Her oyuncu kartında:
+- Oyuncu adı
+- Pozisyon
+- Toplam güç
+- 11 özellik
+- Maç sırasında değişen GÜNCEL özellik değerleri
+görünmelidir.
+
+11 özellik:
+
+🏃 Hız
+⚡ İvme
+🎯 Şut
+🪂 Kafa
+🪄 Teknik
+🔵 Kısa Pas
+📡 Uzun Pas
+🧩 Oyun Zekâsı
+💪 Fizik
+🛡️ Defans
+🧤 Kalecilik
+
+Her özellik başlangıçta 1–11 arasındadır.
+
+KESİN KURAL:
+Hiçbir özellik hiçbir zaman 1'in altına veya 11'in üzerine çıkamaz.
+
+Örnek:
+10 + 2 = 11
+11 + 3 = 11
+2 - 5 = 1
+
+==================================================
+2. MAÇ YAPISI
+==================================================
+
+Maç 5 normal round + 90. dakika final aşamasından oluşur.
+
+ROUND 1 = 0–15
+ROUND 2 = 15–30
+ROUND 3 = 30–45
+ROUND 4 = 45–60
+ROUND 5 = 60–75
+
+Her round tam olarak 3 olaydan oluşur:
+
+OLAY 1
+OLAY 2
+OLAY 3
+
+Round sonucu SADECE Olay 3 tamamlandıktan sonra belirlenir.
+
+==================================================
+3. OLAY 1 VE OLAY 2
+==================================================
+
+Olay 1 ve Olay 2 oyuncu seçme aşaması DEĞİLDİR.
+
+Kullanıcıdan oyuncu seçmesini isteme.
+
+Bu olaylarda bir olay kartı açılır ve kartın etkisi oyuncuların GÜNCEL özelliklerine uygulanır.
+
+Örnek:
+
+🌧️ YAĞMUR
+
+Tüm saha oyuncuları:
+Hız -1
+Teknik -1
+
+Defans +1
+
+veya:
+
+🔥 DERBİ GERİLİMİ
+
+Fizik +1
+Şut -1
+
+Uygulanan değişiklikler oyuncu kartlarının üzerinde hemen görünmelidir.
+
+Örneğin:
+
+Hız 9 → 8
+
+Teknik 10 → 9
+
+Defans 7 → 8
+
+Bu değişiklikler sadece görsel bir efekt değil, sonraki Olay 3 hesaplamalarında gerçekten kullanılmalıdır.
+
+Değişiklikler maç boyunca mevcut değerlerde kalır.
+
+Sonraki olaylarda yeni + / - etkiler uygulanabilir.
+
+Her değişiklikten sonra değerleri 1–11 arasında clamp et.
+
+==================================================
+4. OLAY 3 — OYUNCU SEÇİMİ
+==================================================
+
+Burası oyunun ana stratejik seçim aşamasıdır.
+
+Olay 3 kartı oyuncuya hangi özelliğin veya şartın kullanılacağını söyler.
+
+Örneğin:
+
+🪂 HAVA TOPU
+Kafa
+
+veya:
+
+⚡ HIZLI ATAK
+Hız
+
+veya:
+
+🎯 ŞUT POZİSYONU
+Şut
+
+veya:
+
+🧩 OYUN KURMA
+Oyun Zekâsı
+
+Olay 3 başladığında oyuncuya sadece kullanılabilir 10 saha oyuncusu göster.
+
+KALECİ BU AŞAMADA SEÇİLEMEZ.
+
+Oyuncu kendi takımından TAM OLARAK 2 oyuncu seçer.
+
+Rakip de kendi takımından TAM OLARAK 2 oyuncu seçer.
+
+Seçilen iki oyuncunun Olay 3'ün istediği GÜNCEL özelliği toplanır.
+
+Örneğin:
+
+Beşiktaş:
+Sergen = Kafa 8
+Metin = Kafa 9
+
+Toplam = 17
+
+Galatasaray:
+Hagi = Kafa 6
+Hakan = Kafa 11
+
+Toplam = 17
+
+Sonuç:
+BERABERE
+
+Daha yüksek toplamı yapan takım round'u kazanır.
+
+==================================================
+5. SEÇİLEN OYUNCULARIN KİLİTLENMESİ
+==================================================
+
+BU ÇOK ÖNEMLİ.
+
+Bir oyuncu Olay 3'te seçildiği anda MATCH boyunca LOCKED olur.
+
+O oyuncu:
+- Bir daha seçilemez.
+- Sonraki Olay 3'lerde seçim ekranında aktif olarak görünmemeli veya açıkça LOCKED görünmeli.
+- Kart üzerinde 🔒 / KULLANILDI gibi bir gösterge olabilir.
+- Kullanıcı yanlışlıkla tekrar seçememeli.
+
+Her takım 5 round boyunca:
+
+Round 1 → 2 oyuncu kullanır
+Round 2 → 2 oyuncu kullanır
+Round 3 → 2 oyuncu kullanır
+Round 4 → 2 oyuncu kullanır
+Round 5 → 2 oyuncu kullanır
+
+Toplam 10 saha oyuncusu kullanılır.
+
+Dolayısıyla 5. round sonunda 10 saha oyuncusunun tamamı birer kez kullanılmış olur.
+
+KALECİ KULLANILMAMIŞ OLARAK KALIR.
+
+==================================================
+6. KALECİ KURALI
+==================================================
+
+Kaleci ilk 5 round boyunca Olay 3 seçimlerine dahil değildir.
+
+Kaleci sahada görünmeye devam eder.
+
+Kalecinin özellikleri Olay 1 / Olay 2 etkilerinden etkilenebilir ancak Olay 3'te seçilemez.
+
+Kaleci yalnızca 90. dakika final aşamasında devreye girebilir.
+
+==================================================
+7. ROUND SONUCU VE SKOR
+==================================================
+
+Olay 3 tamamlandığında:
+
+1. İki takımın toplamı hesaplanır.
+2. Round kazananı belirlenir.
+3. Kazanan takım maç skoruna +1 alır.
+4. Beraberlikte skor değişmez.
+5. Round sonucu ekranda açıkça gösterilir.
+
+Örnek:
+
+ROUND 3 SONUCU
+
+Beşiktaş 18
+Galatasaray 21
+
+🏆 ROUND GALATASARAY
+
+Skor:
+Beşiktaş 1 – 2 Galatasaray
+
+Sonra bir sonraki round'a geç.
+
+==================================================
+8. OYUNCU KARTLARININ GÜNCEL DEĞERLERİ
+==================================================
+
+Oyuncu kartlarında iki farklı bilgi olabilir:
+
+BASE / TEMEL
+ve
+CURRENT / GÜNCEL
+
+Ancak kullanıcı için özellikle GÜNCEL değer görünür olmalı.
+
+Örneğin:
+
+SERGEN YALÇIN
+10 Numara
+
+Kafa
+Temel: 9
+Güncel: 8
+
+Teknik
+Temel: 11
+Güncel: 10
+
+Böylece Olay 1 ve Olay 2'nin oyuncuları nasıl değiştirdiği anlaşılabilir.
+
+Eğer mevcut tasarım bunu daha sade yapıyorsa, temel değeri küçük gösterip güncel değeri büyük göstermek yeterlidir.
+
+==================================================
+9. OLAY KARTLARI
+==================================================
+
+Olay kartları iki kategori mantığıyla çalışmalı:
+
+A) MODIFIER EVENT
+Olay 1 ve Olay 2'de kullanılır.
+Oyuncuların güncel özelliklerini değiştirir.
+
+B) COMPARISON EVENT
+Olay 3'te kullanılır.
+Oyuncuların hangi özelliğe göre seçileceğini belirler.
+
+Olay 3 örnekleri:
+
+"HAVA TOPU"
+→ Kafa
+
+"HIZLI ATAK"
+→ Hız
+
+"SON VURUŞ"
+→ Şut
+
+"TEKNİK HAREKET"
+→ Teknik
+
+"OYUN KURMA"
+→ Kısa Pas
+
+"UZUN TOP"
+→ Uzun Pas
+
+"TAKTİK SAVAŞ"
+→ Oyun Zekâsı
+
+"İKİLİ MÜCADELE"
+→ Fizik
+
+"SAVUNMA DUVARI"
+→ Defans
+
+İlk prototipteki olay kartlarını koruyabilir ancak mekanik olarak bu sisteme uydur.
+
+==================================================
+10. 90. DAKİKA
+==================================================
+
+5 normal round tamamlandıktan sonra:
+
+⏱️ 90. DAKİKA
+
+aşamasına geç.
+
+Burada ortak 90. Dakika destesinden 1 kart açılır.
+
+Toplam 11 adet 90. Dakika kartı vardır.
+
+90. dakika kartı final skoru değiştirebilir.
+
+Örneğin:
+
+"İnanılmaz kurtarış!"
+→ Rakip -1
+
+"Kaleci topu elinden kaçırdı!"
+→ Kendi takımın -1
+
+"Kaleci ileri çıktı, topu kaptırdı!"
+→ Rakip +1
+
+"Kaleci kalesinde uyuyakaldı!"
+→ Kendi takımın -1
+
+"KALECİ SÜRPRİZİ"
+→ Kaleciyi final olayına dahil et.
+
+Şimdilik mevcut 90. dakika sistemini koru fakat kalecinin sadece burada devreye girmesini sağla.
+
+90. dakika sonucundan sonra FINAL SCORE göster.
+
+==================================================
+11. OYUNCU SEÇİM EKRANI
+==================================================
+
+ÖNEMLİ:
+
+Kullanıcıya her olayda oyuncu seçtirme.
+
+Sadece OLAY 3'te seçim yaptır.
+
+Olay 1:
+→ Kart açılır
+→ Etki uygulanır
+→ otomatik devam
+
+Olay 2:
+→ Kart açılır
+→ Etki uygulanır
+→ otomatik devam
+
+Olay 3:
+→ Özellik/şart gösterilir
+→ Kullanıcı 2 oyuncu seçer
+→ Rakip 2 oyuncu seçer
+→ karşılaştırma yapılır
+→ round sonucu belirlenir
+→ seçilen oyuncular LOCKED olur
+
+==================================================
+12. ARAYÜZ
+==================================================
+
+Mevcut güzel futbol sahası tasarımını koru.
+
+İki takım karşılıklı görünsün.
+
+Her takımın:
+- Skoru
+- Round numarası
+- Oyuncuları
+- Güncel özellikleri
+- Kullanılmış/kilitli oyuncuları
+
+görünür olsun.
+
+Round ilerlemesini göstermek için:
+
+ROUND 1
+● Olay 1
+● Olay 2
+● Olay 3
+
+şeklinde bir ilerleme göstergesi kullanılabilir.
+
+Olay 3 seçiminde seçilen oyuncular görsel olarak highlight edilsin.
+
+Seçim tamamlandığında:
+
+"2 / 2 OYUNCU SEÇİLDİ"
+
+göster.
+
+Round tamamlandığında kısa bir sonuç animasyonu göster.
+
+==================================================
+13. OYUNUN ÖNEMLİ MANTIĞI
+==================================================
+
+Oyuncunun toplam gücü hiçbir zaman doğrudan maç sonucunu belirlememeli.
+
+Olay 3 hangi özelliği istiyorsa SADECE o özellik üzerinden karşılaştırma yap.
+
+Örneğin düşük toplam güce sahip bir oyuncunun:
+
+Kafa = 11
+
+olabilir ve Hava Topu olayında çok değerli olabilir.
+
+Bu nedenle:
+OVERALL / TOPLAM GÜÇ
+sadece genel bilgi olarak kullanılmalı.
+
+Round sonucunda kullanılmamalı.
+
+==================================================
+14. TEKNİK GEREKLİLİK
+==================================================
+
+Mevcut kodu incele.
+
+Yeni sistemi mevcut prototipe entegre et.
+
+Özellikle aşağıdaki state'leri düzgün yönet:
+
+- currentPlayerStats
+- lockedPlayers
+- currentRound
+- currentEvent
+- selectedPlayers
+- score
+- goalkeeperAvailableForFinal
+
+Sayfayı yenilemeden maç boyunca değerler korunmalı.
+
+Oyuncu seçimi tekrarını engelle.
+
+Her round başlangıcında kilitli oyuncuları tekrar aktif hale getirme.
+
+Round sonunda oyuncuları otomatik değiştirme.
+
+Başlangıç 11 oyuncu maç boyunca sahada kalmalı.
+
+Sadece Olay 3 seçimleri oyuncuları LOCKED durumuna geçirmeli.
+
+==================================================
+15. TEST
+==================================================
+
+Uygulamayı çalıştır ve aşağıdaki senaryoyu test et:
+
+Round 1:
+Olay 1 modifier
+Olay 2 modifier
+Olay 3 → 2 oyuncu seç
+→ bu 2 oyuncunun kilitlendiğini doğrula
+
+Round 2:
+Olay 3'te Round 1'de kullanılan oyuncular tekrar seçilememeli.
+
+Round 3:
+Önceki 4 oyuncu tekrar seçilememeli.
+
+Round 4:
+Önceki 6 oyuncu tekrar seçilememeli.
+
+Round 5:
+Önceki 8 oyuncu tekrar seçilememeli.
+Son 2 saha oyuncusu seçilebilmeli.
+
+Round 5 sonunda:
+10 outfield player LOCKED
+1 goalkeeper AVAILABLE
+
+90. dakika:
+Kaleci sadece final mekanizmasında kullanılabilmeli.
+
+Ayrıca modifier test et:
+10 + 3 = 11
+11 + 2 = 11
+2 - 5 = 1
+
+Bunların tamamı doğru çalışmalı.
+
+Kodlama tamamlandıktan sonra uygulamayı çalıştır, build hatalarını düzelt ve preview'da test et.
+
+EN ÖNEMLİ SONUÇ:
+
+Maç boyunca başlangıç 11 oyuncu değişmeyecek.
+
+İlk 5 round'da kaleci seçilemeyecek.
+
+Her round'da sadece Olay 3'te 2 oyuncu seçilecek.
+
+Seçilen oyuncular bir daha kullanılamayacak.
+
+Olay 1 ve Olay 2 oyuncuların GÜNCEL özelliklerini değiştirecek.
+
+5 round sonunda 10 saha oyuncusu tüketilmiş olacak ve kaleci 90. dakika için kalacak.
