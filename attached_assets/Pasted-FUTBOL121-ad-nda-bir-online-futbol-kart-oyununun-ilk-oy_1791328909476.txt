@@ -1,0 +1,106 @@
+FUTBOL121 adında bir online futbol kart oyununun ilk oynanabilir prototipini oluştur.
+
+Bu ilk versiyon sadece HTML, CSS ve JavaScript kullanmalı. Harici veritabanı veya ödeme sistemi kullanma.
+
+Oyunun amacı:
+İki oyuncunun futbolcu kartlarıyla karşılaştığı stratejik bir futbol kart oyunu.
+
+İlk prototipte gerçek multiplayer yapma. Önce tek bilgisayarda iki tarafın oynayabileceği bir demo yap.
+
+Ana ekran:
+- FUTBOL121 logosu/başlığı
+- "MAÇA BAŞLA" butonu
+- Modern, profesyonel futbol oyunu görünümü
+- Koyu arka plan, futbol sahası hissi
+- Türkçe arayüz
+
+İlk prototipte iki takım:
+- Beşiktaş
+- Galatasaray
+
+Oyuncu kart sistemi:
+Her futbolcunun 11 özelliği olacak:
+Hız, İvme, Şut, Kafa, Teknik, Kısa Pas, Uzun Pas, Oyun Zekâsı, Fizik, Defans, Kalecilik.
+
+Her özellik 1-11 arasında olacak.
+Hiçbir özellik 11'i geçmeyecek.
+
+Şimdilik gerçek 121 kişilik havuzu oluşturma. Test amacıyla her takım için 11 örnek futbolcu kullan.
+
+Maç sistemi:
+Maç 5 Round'dan oluşsun.
+
+Round 1: 0-15
+Round 2: 15-30
+Round 3: 30-45
+Round 4: 45-60
+Round 5: 60-75
+
+Her Round'da 3 Olay olsun.
+Toplam 15 Olay.
+
+Her Olay kartı bir özellik belirlesin.
+Örneğin:
+- Hava Topu → Kafa
+- Uzaktan Şut → Şut
+- Kontra Atak → İvme
+- İkili Mücadele → Fizik
+- Pas Oyunu → Kısa Pas
+- Uzun Top → Uzun Pas
+- Çalım → Teknik
+- Savunma Hattı → Defans
+- Hızlı Hücum → Hız
+- Taktik Hamle → Oyun Zekâsı
+
+Her olayda her takımdan 2 futbolcu seçilsin.
+
+Seçilen iki futbolcunun ilgili özelliği toplanacak.
+Örneğin:
+Beşiktaş oyuncuları: 9 + 10 = 19
+Galatasaray oyuncuları: 8 + 10 = 18
+Sonuç: Beşiktaş +1.
+
+Üç olay tamamlandıktan sonra Round kazananı belirlensin.
+Round kazananı maç skorunda 1 puan/goal kazansın.
+
+ÖNEMLİ:
+İlk veya ikinci olaydan sonra Round kazananını kesinleştirme.
+Round kazananı yalnızca 3. olay tamamlandıktan sonra belli olsun.
+
+Her Round bittikten sonra yeni oyuncuların seçilebilmesine izin ver.
+
+75. dakikadan sonra özel "90. DAKİKA" aşaması olsun.
+Şimdilik bir final kartı göster:
+"90. DAKİKA"
+ve rastgele bir sonuç üret:
+- Rakip -1
+- Kendi takımın -1
+- Etki yok
+
+Maç sonunda büyük bir FINAL SKORU ekranı göster.
+
+Oyuncu kartlarını görsel olarak gerçek koleksiyon kartlarına benzeyen modern kartlar şeklinde tasarla.
+Kartta:
+- Futbolcu adı
+- Pozisyon
+- Toplam güç
+- 11 özellik
+gösterilsin.
+
+Oyuncu seçildiğinde kartın seçili olduğu görsel olarak belli olsun.
+
+Maç ekranında:
+- İki takımın adı
+- Güncel skor
+- Dakika
+- Mevcut Round
+- Olay kartı
+- Oyuncu seçim alanları
+- Sonuç mesajı
+gösterilsin.
+
+Oyuncunun hangi özelliğin kullanılacağını kolayca anlayabileceği çok net bir arayüz oluştur.
+
+Kod temiz ve modüler olsun. Oyunun ileride 121 futbolcu, 11 Santra kartı, 165 Olay kartı ve 11 adet 90. Dakika kartına genişletilebilmesi için veri yapısını buna uygun hazırla.
+
+Şimdilik oyunun gerçekten çalışması en önemli hedef.
