@@ -1,0 +1,634 @@
+FUTBOL121 V2 — EĞLENCELİ MAÇ SUNUMU + KOMİK ANİMASYON SİSTEMİ
+
+Mevcut FUTBOL121 prototipini BOZMA.
+Mevcut çalışan futbol sahası, kartlar, takım yapısı ve maç sistemini koru.
+Şimdi oyuna sinematik, komik ve arcade tarzı bir sunum katmanı ekle.
+
+AMAÇ:
+FUTBOL121 sadece sayı karşılaştıran bir kart oyunu gibi hissettirmemeli.
+Her maç küçük bir futbol şovu gibi başlamalı ve olaylar küçük komik futbol sahnelerine dönüşmeli.
+
+==================================================
+1. MAÇ BAŞLANGIÇ AKIŞI
+==================================================
+
+Maç hemen başlamasın.
+
+Yeni akış:
+
+MAÇ ÖNCESİ
+↓
+RÖPORTAJ
+↓
+SANTRA ÖNCESİ EXTREME OLAY
+↓
+SANTRA
+↓
+0–15 MAÇ
+↓
+15–30
+↓
+30–45
+↓
+45–60
+↓
+60–75
+↓
+90. DAKİKA
+↓
+FINAL SCORE
+
+==================================================
+2. MAÇ ÖNCESİ RÖPORTAJ SİSTEMİ
+==================================================
+
+Her maç başlamadan önce rastgele bir veya daha fazla kısa röportaj/açıklama göster.
+
+Örnek:
+
+🎙️ MAÇ ÖNCESİ RÖPORTAJ
+
+SERGEN YALÇIN
+"Bugün top bizde kalırsa gerisini siz düşünün."
+
+veya:
+
+HAGİ
+"Ben sadece kazanmak için geldim."
+
+veya:
+
+TEKNİK DİREKTÖR
+"Rakibimizi analiz ettik. Ama futbol analizden biraz daha fazlası."
+
+veya:
+
+TARAFTAR
+"Bugün kimse eve erken gitmeyecek!"
+
+Röportajlar komik, kısa ve futbol kültürüne uygun olsun.
+
+ÖNEMLİ:
+Maç öncesi bu aşamada oyuncu seçimi YOK.
+
+Sadece açıklamayı ve etkilerini göster.
+
+==================================================
+3. RÖPORTAJ ETKİLERİ
+==================================================
+
+Her röportajın 11 özellik üzerinde etkisi olabilir.
+
+Ekranda mutlaka 11 sembol göster:
+
+🏃 Hız
+⚡ İvme
+🎯 Şut
+🪂 Kafa
+🪄 Teknik
+🔵 Kısa Pas
+📡 Uzun Pas
+🧩 Oyun Zekâsı
+💪 Fizik
+🛡️ Defans
+🧤 Kalecilik
+
+Örnek:
+
+SERGEN'İN AÇIKLAMASI
+
+🏃 +1
+⚡ 0
+🎯 +1
+🪂 0
+🪄 +1
+🔵 0
+📡 +1
+🧩 +1
+💪 0
+🛡️ 0
+🧤 0
+
+Bu etkiler maç başlamadan önce güncel oyuncu değerlerine uygulanabilir.
+
+Fakat kullanıcı bu aşamada hiçbir oyuncu seçmez.
+
+Etkiler otomatik uygulanır.
+
+Tüm değerler yine 1–11 arasında clamp edilir.
+
+==================================================
+4. SANTRA ÖNCESİ EXTREME OLAY
+==================================================
+
+Röportajlardan sonra:
+
+⚡ SANTRA ÖNCESİ
+
+11 adet Santra kartından biri rastgele seçilir.
+
+Bu kart sadece bir metin olarak gösterilmemeli.
+
+Kart açılma animasyonu olsun.
+
+Sonra kartın içindeki olay sahnelenmeli.
+
+Örnek:
+
+🐻 MASKOT TOPU KAPTI!
+
+Kısa animasyon:
+- maskot sahaya girer
+- topu alır
+- hakem arkasından koşar
+- maskot kaçar
+- oyuncular şaşırır
+
+Sonra:
+
+ETKİLER
+
+BJK
+💪 +1
+🧩 -1
+
+GS
+🎯 -1
+
+ve değerler uygulanır.
+
+==================================================
+5. EXTREME SANTRA OLAYLARI
+==================================================
+
+En az 11 farklı Santra olayı oluştur.
+
+Örnekler:
+
+1. 🐻 MASKOT SAHAYA GİRDİ
+2. 🌧️ MAÇ ÖNCESİ ANİ SAĞANAK
+3. 🔥 DERBİ GERİLİMİ
+4. 🎆 TRİBÜNLER PATLADI
+5. 🐦 KUŞ SAHAYA KONDU
+6. 🚌 RAKİP TAKIM OTOBÜSTEN İNEMEDİ
+7. 😂 HAKEM TOPU YANLIŞLIKLA KAPTIRDI
+8. 💨 TOP RÜZGÂRLA SAHADAN ÇIKTI
+9. 📢 TARAFTAR HAKEMİ PROTESTO ETTİ
+10. 🥶 KALECİ ISINMAYI UNUTTU
+11. 💥 SANTRA ÖNCESİ KÜÇÜK KARGAŞA
+
+Her olay farklı bir görsel/animasyon hissi versin.
+
+==================================================
+6. SANTRA ANİMASYONU
+==================================================
+
+Extreme olay bittikten sonra:
+
+ekranda:
+
+⚽ SANTRA
+
+göster.
+
+Oyuncular kısa bir başlangıç animasyonu yapsın.
+
+Top orta noktada olsun.
+
+Hakem düdük animasyonu/sesi mümkünse oynatılsın.
+
+Sonra:
+
+"MAÇ BAŞLADI"
+
+ve normal oyun ekranına geç.
+
+==================================================
+7. OLAY KARTLARINI SİNEMATİK HALE GETİR
+==================================================
+
+Mevcut Olay 1 / Olay 2 / Olay 3 sistemi korunacak.
+
+Fakat olay kartı açıldığında sadece:
+
+"Teknik -1"
+
+yazıp geçme.
+
+Önce kısa bir olay animasyonu göster.
+
+Örnek:
+
+🌧️ OLAY #032
+SAĞANAK!
+
+Animasyon:
+- yağmur başlar
+- oyuncular şaşırır
+- biri kayar
+- top sekmeye başlar
+
+Sonra:
+
+ETKİ
+
+🪄 TEKNİK
+10 → 9
+
+🏃 HIZ
+9 → 8
+
+ve animasyon tamamlanır.
+
+==================================================
+8. OLAYLAR İÇİN ANİMASYON KÜTÜPHANESİ
+==================================================
+
+HTML/CSS/JS ile hafif animasyonlar oluştur.
+
+3D oyun yapmaya çalışma.
+
+2D arcade/cartoon tarzı yeterli.
+
+Animasyon tipleri:
+
+RAIN
+→ yağmur
+
+WIND
+→ rüzgâr
+
+FIGHT
+→ oyuncuların tartışması
+
+SLIDE
+→ oyuncunun kayması
+
+SHOT
+→ topun hızla gitmesi
+
+HEADER
+→ oyuncunun kafa vuruşu
+
+RUN
+→ hızlı koşu
+
+REFEREE
+→ hakemin kart göstermesi
+
+CROWD
+→ tribünlerin hareketlenmesi
+
+CONFETTI
+→ gol/başarı
+
+FOUL
+→ faul animasyonu
+
+GOALKEEPER
+→ kaleci kurtarışı
+
+FUNNY
+→ komik olay
+
+SCREEN_SHAKE
+→ önemli olaylarda ekran sarsılması
+
+CARD_POP
+→ kartın ekrana gelmesi
+
+STAT_UP
+→ +1 / +2 animasyonu
+
+STAT_DOWN
+→ -1 / -2 animasyonu
+
+Bu animasyonları tekrar kullanılabilir component/function olarak yaz.
+
+==================================================
+9. OLAYDAN ETKİLENEN OYUNCUNUN SAHNEYE ÇIKMASI
+==================================================
+
+Bir olay belirli bir oyuncuyu etkiliyorsa o oyuncunun kartı kısa süreliğine öne çıksın.
+
+Örneğin:
+
+OLAY:
+
+⚡ HIZLI ATAK
+
+sonra:
+
+7
+SERGEN YALÇIN
+
+kartı büyüsün.
+
+Oyuncu adı ekranda büyük görünsün.
+
+Sonra seslendirme:
+
+"7 NUMARA SERGEN YALÇIN"
+
+ardından:
+
+🏃 HIZ
+9 → 10
+
+animasyonu.
+
+Sonra kart eski yerine dönsün.
+
+==================================================
+10. OYUNCU İSMİ + FORMA NUMARASI SESLENDİRME
+==================================================
+
+Tarayıcı Text-to-Speech / SpeechSynthesis API kullan.
+
+Her oyuncunun forma numarası ve adı olsun.
+
+Örnek:
+
+"7 numara Sergen Yalçın"
+
+"10 numara Hagi"
+
+"9 numara Hakan Şükür"
+
+"11 numara Metin Oktay"
+
+Seslendirme mümkün değilse oyun yine çalışmaya devam etsin.
+
+Seslendirme sistemi hiçbir zaman oyunun çalışmasını engellememeli.
+
+Ayrıca olay metinleri de isteğe bağlı olarak seslendirilebilir.
+
+==================================================
+11. OLAY NUMARALARI
+==================================================
+
+Her olay kartının fiziksel kart numarası görünür olsun.
+
+Örnek:
+
+OLAY #001
+OLAY #047
+OLAY #121
+OLAY #165
+
+Kart ekrana geldiğinde:
+
+⚡ OLAY #047
+
+gibi göster.
+
+Bu numara olayın sadece görsel/kimlik numarasıdır.
+
+==================================================
+12. OLAY 1 / OLAY 2 / OLAY 3 MEKANİĞİ KORUNACAK
+==================================================
+
+ÇOK ÖNEMLİ:
+
+Oyuncu Olay 1 ve Olay 2'de oyuncu seçmeyecek.
+
+Olay 1:
+→ rastgele olay kartı
+→ animasyon
+→ efekt
+→ güncel özellik değişimi
+
+Olay 2:
+→ rastgele olay kartı
+→ animasyon
+→ efekt
+→ güncel özellik değişimi
+
+Olay 3:
+→ şart/özellik açıklanır
+→ kullanıcı 2 oyuncu seçer
+→ rakip 2 oyuncu seçer
+→ karşılaştırma yapılır
+→ round sonucu
+
+Seçilen oyuncular LOCKED olur.
+
+==================================================
+13. OYUNCU KARTLARI
+==================================================
+
+Başlangıçta 11 oyuncu sahada kalır.
+
+1 GK
+4 DEF
+4 MID
+2 FW
+
+İlk 5 round'da:
+
+GK seçim dışında.
+
+10 saha oyuncusu Olay 3'lerde kullanılabilir.
+
+Her oyuncu yalnızca bir kez seçilebilir.
+
+5 round sonunda:
+
+10 saha oyuncusu LOCKED
+1 GK kullanılabilir
+
+==================================================
+14. 90. DAKİKA
+==================================================
+
+75. dakika sonrasında:
+
+⏱️ 90. DAKİKA
+
+11 final kartından biri rastgele açılsın.
+
+Kart yine animasyonla sunulsun.
+
+Örnek:
+
+🧤 KALECİ TOPU ELİNDEN KAÇIRDI!
+
+Animasyon:
+- kaleci topu yakalar
+- top elinden kayar
+- kaleci şaşırır
+- top kaleye gider
+
+Sonra:
+
+BJK -1
+
+ve skor güncellenir.
+
+Başka:
+
+🧤 İNANILMAZ KURTARIŞ!
+
+Kaleci atlar
+Topu çıkarır
+Konfeti
+
+Rakip -1
+
+Kaleci sadece burada kullanılabilir.
+
+==================================================
+15. GENEL GÖRSEL TARZ
+==================================================
+
+Tarz:
+
+- Eğlenceli
+- Karikatür
+- Arcade football
+- Hafif absürt
+- Renkli
+- Hızlı
+- Komik
+
+Ama çocuk oyunu gibi görünmesin.
+
+Kart tasarımı profesyonel collectible card game hissi versin.
+
+Futbol sahası gerçekçi oranlara yakın olsun.
+
+Oyuncular kart olarak görünmeye devam etsin.
+
+Animasyonlar kısa olsun:
+
+2–5 saniye.
+
+Oyuncuyu bekletip oyunun temposunu düşürme.
+
+SKIP / DEVAM ET butonu bulunabilir.
+
+==================================================
+16. MAÇIN TEMPOSU
+==================================================
+
+Her olayın akışı:
+
+1. Kart açılır
+2. Olay başlığı
+3. Kısa animasyon
+4. Oyuncu adı/numarası varsa seslendirme
+5. Stat değişimi
+6. Güncel değer gösterimi
+7. Devam
+
+Bu akış çok hızlı olmalı.
+
+==================================================
+17. ÖRNEK TAM OLAY
+==================================================
+
+Örneğin:
+
+OLAY #047
+
+🌧️ SAĞANAK BAŞLADI!
+
+[yağmur animasyonu]
+
+Oyuncu:
+
+7 NUMARA
+SERGEN YALÇIN
+
+🔊 "7 numara Sergen Yalçın!"
+
+Kart büyür.
+
+🪄 TEKNİK
+10 → 9
+
+🏃 HIZ
+9 → 8
+
+Sonra kart yerine döner.
+
+Olay tamamlanır.
+
+==================================================
+18. ÖNEMLİ: MEVCUT OYUNU BOZMA
+==================================================
+
+Mevcut:
+
+- takım kadroları
+- futbol sahası
+- oyuncu kartları
+- skor sistemi
+- round sistemi
+- Olay 1/2/3 sistemi
+- oyuncu kilitleme sistemi
+- 90. dakika sistemi
+
+korunacak.
+
+Sadece bunların üzerine:
+
+- maç öncesi röportaj
+- 11 sembollü etkiler
+- Santra extreme olayları
+- santra animasyonu
+- olay animasyonları
+- oyuncu adı + forma numarası seslendirme
+- olay numaraları
+- kısa arcade animasyonlar
+
+eklensin.
+
+==================================================
+19. TEST
+==================================================
+
+Uygulamayı çalıştır.
+
+Tam bir maç simülasyonu yap.
+
+Kontrol et:
+
+MAÇ ÖNCESİ
+✓ Röportaj görünüyor
+✓ 11 özellik etkisi görünüyor
+
+SANTRA
+✓ Rastgele Santra kartı geliyor
+✓ Extreme olay animasyonu oynuyor
+✓ Etkiler uygulanıyor
+✓ Santra animasyonu oynuyor
+
+MAÇ
+✓ Olay 1 animasyonlu
+✓ Olay 2 animasyonlu
+✓ Olay 3 seçim sistemi çalışıyor
+✓ Seçilen oyuncular kilitleniyor
+✓ Oyuncu isimleri ve numaraları seslendiriliyor
+✓ Güncel statlar doğru
+
+90. DAKİKA
+✓ Final kartı açılıyor
+✓ Animasyon oynuyor
+✓ Kaleci sadece burada kullanılabiliyor
+
+FINAL SCORE
+✓ Son skor doğru gösteriliyor.
+
+Build hatalarını düzelt.
+
+Preview'da gerçek bir maç oynayarak test et.
+
+Sonunda bana:
+1. Hangi dosyaları değiştirdiğini
+2. Hangi yeni sistemleri eklediğini
+3. Animasyonların nasıl çalıştığını
+4. Seslendirme sisteminin nasıl çalıştığını
+5. Test sonucunu
+
+kısaca bildir.
